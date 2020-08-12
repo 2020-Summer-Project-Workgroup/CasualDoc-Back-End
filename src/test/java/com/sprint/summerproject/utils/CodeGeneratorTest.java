@@ -1,7 +1,7 @@
-package com.sprint.SummerProject.Utils;
+package com.sprint.summerproject.utils;
 
 
-import com.sprint.SummerProject.utils.CodeGenerator;
+import com.sprint.summerproject.utils.CodeGenerator;
 import org.junit.jupiter.api.Test;
 
 public class CodeGeneratorTest {

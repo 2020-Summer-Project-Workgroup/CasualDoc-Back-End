@@ -1,4 +1,4 @@
-package com.sprint.SummerProject;
+package com.sprint.summerproject;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
