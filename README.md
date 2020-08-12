@@ -1,2 +1,2 @@
 # CasualDoc-Back-End
-The Casual doc back end code.
+CasualDoc back-end repository
