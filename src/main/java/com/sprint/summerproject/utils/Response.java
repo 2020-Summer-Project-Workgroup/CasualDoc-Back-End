@@ -1,4 +1,4 @@
-package com.sprint.SummerProject.utils;
+package com.sprint.summerproject.utils;
 
 public class Response {
 

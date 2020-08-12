@@ -1,4 +1,4 @@
-package com.sprint.SummerProject.models;
+package com.sprint.summerproject.models;
 
 import java.util.Calendar;
 
