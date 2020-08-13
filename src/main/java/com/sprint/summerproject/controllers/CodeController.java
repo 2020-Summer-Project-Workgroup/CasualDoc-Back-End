@@ -4,6 +4,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.sprint.summerproject.services.TelService;
 import com.sprint.summerproject.services.EmailService;
 import com.sprint.summerproject.utils.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,28 +16,32 @@ import javax.mail.MessagingException;
 @RestController
 public class CodeController {
 
+    private final TelService telService;
     private final EmailService emailService;
 
-    public CodeController(EmailService emailService) {
+    @Autowired
+    public CodeController(TelService telService, EmailService emailService) {
+        this.telService = telService;
         this.emailService = emailService;
     }
 
     @PostMapping("/code/tel")
-    public Response createCodeToTel(@RequestParam String tel) {
+    public String sendCodeToTel(@RequestParam String tel) {
         try {
-            TelService.sendCode(tel);
-            return new Response(200, "验证码发送成功！");
+            telService.sendCode(tel);
+            return "Yes";
         } catch (ClientException e) {
-            return new Response(0, "验证码发送失败！");
+            return "No";
         }
     }
 
     @GetMapping("/code/tel")
-    public Response checkCodeToTel(@RequestParam String tel, @RequestParam String code) {
-        if (TelService.checkCode(tel, code)) {
-            return new Response(200, "验证成功！");
+    public String checkCodeOfTel(@RequestParam String tel, @RequestParam String code) {
+        String _code = telService.retrieveCode(tel);
+        if (code != null) {
+            return code.equals(_code) ? "Yes" : "No";
         } else {
-            return new Response(0, "验证码不正确，请检查后输入！");
+            return "No";
         }
     }
 

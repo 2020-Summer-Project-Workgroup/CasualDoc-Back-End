@@ -1,9 +1,10 @@
 package com.sprint.summerproject.storages;
 
-import com.sprint.summerproject.exceptions.CodeNonExistException;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
 
+@Component
 public class CodeStorage {
 
     private final int CAP = 500;

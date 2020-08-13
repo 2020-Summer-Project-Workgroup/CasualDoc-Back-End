@@ -9,11 +9,15 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.sprint.summerproject.storages.CodeStorage;
 import com.sprint.summerproject.utils.CodeGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TelService {
 
-    private CodeStorage codeStorage;
+    private final CodeStorage codeStorage;
 
+    @Autowired
     public TelService(CodeStorage codeStorage) {
         this.codeStorage = codeStorage;
     }
