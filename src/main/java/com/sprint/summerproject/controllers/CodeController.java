@@ -1,7 +1,7 @@
 package com.sprint.summerproject.controllers;
 
 import com.aliyuncs.exceptions.ClientException;
-import com.sprint.summerproject.services.CodeService;
+import com.sprint.summerproject.services.TelService;
 import com.sprint.summerproject.services.EmailService;
 import com.sprint.summerproject.utils.Response;
 import org.springframework.mail.MailException;
@@ -24,7 +24,7 @@ public class CodeController {
     @PostMapping("/code/tel")
     public Response createCodeToTel(@RequestParam String tel) {
         try {
-            CodeService.sendCode(tel);
+            TelService.sendCode(tel);
             return new Response(200, "验证码发送成功！");
         } catch (ClientException e) {
             return new Response(0, "验证码发送失败！");
@@ -33,7 +33,7 @@ public class CodeController {
 
     @GetMapping("/code/tel")
     public Response checkCodeToTel(@RequestParam String tel, @RequestParam String code) {
-        if (CodeService.checkCode(tel, code)) {
+        if (TelService.checkCode(tel, code)) {
             return new Response(200, "验证成功！");
         } else {
             return new Response(0, "验证码不正确，请检查后输入！");
