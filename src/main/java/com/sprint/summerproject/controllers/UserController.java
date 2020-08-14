@@ -40,7 +40,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("user/update/info")
+    @PutMapping("user/info")
     public String updateUserInfo(@RequestParam String id,
                                  @RequestParam String name,
                                  @RequestParam String email,
@@ -90,7 +90,7 @@ public class UserController {
         return "User information updated successfully";
     }
 
-    @GetMapping("user/update/password")
+    @PutMapping("user/password")
     public String updateUserPassword(@RequestParam String id,
                                      @RequestParam String oldPassword,
                                      @RequestParam String newPassword) {
