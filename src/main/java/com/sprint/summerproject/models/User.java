@@ -23,6 +23,10 @@ public class User {
         this.files = files;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -41,6 +45,10 @@ public class User {
 
     public List<File> getFiles() {
         return files;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setName(String name) {
