@@ -6,6 +6,8 @@ import com.sprint.summerproject.repositories.UserRepository;
 import com.sprint.summerproject.utils.Response;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -42,4 +44,17 @@ public class UserService {
     public User retrieveUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
+
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public User retrieveUserById(String id) {
+        return userRepository.findUserById(id);
+    }
+
+    public User writeUser(User user) {
+        return userRepository.save(user);
+    }
+
 }
