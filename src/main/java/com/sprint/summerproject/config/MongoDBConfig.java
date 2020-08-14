@@ -16,6 +16,7 @@ public class MongoDBConfig {
 
         return strings -> {
             userRepository.save(new User("Jerry", "jerryloi@163.com", "13880265015", "2049", null));
+            userRepository.save(new User("Richard", "richard@163.com", "50062998023", "1167", null));
         };
     }
 }
