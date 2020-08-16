@@ -4,6 +4,7 @@ import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -12,18 +13,32 @@ import java.util.Map;
 public class File {
     @Id
     String id;
+    String fileName;
     String title;
     Binary content;
     Date time;
     List<Comment> comments;
-    List<Map<String, String>> access;
+    Map<String, String> access;
 
-    public File(String title, Binary content, Date time, List<Comment> comments, List<Map<String, String>> access) {
+    public File(String title, String fileName, Binary content, Date time, Map<String, String> access) {
+        this.fileName = fileName;
         this.title = title;
         this.content = content;
         this.time = time;
-        this.comments = comments;
+        this.comments = new ArrayList<>();
         this.access = access;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public String getTitle() {
@@ -58,11 +73,11 @@ public class File {
         this.comments = comments;
     }
 
-    public List<Map<String, String>> getAccess() {
+    public Map<String, String> getAccess() {
         return access;
     }
 
-    public void setAccess(List<Map<String, String>> access) {
+    public void setAccess(Map<String, String> access) {
         this.access = access;
     }
 }
