@@ -23,7 +23,7 @@ public class TelService {
     }
 
     public void sendCode(String tel) throws ClientException {
-        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "<accessKeyId>", "<accessSecret>");
+        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI4GJXzPsfCpRRcKHozhPp", "hdZHJ92tucL4zQfye2Qg9PSHkbEWNg");
         IAcsClient client = new DefaultAcsClient(profile);
 
         CommonRequest request = new CommonRequest();

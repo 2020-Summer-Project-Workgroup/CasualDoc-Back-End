@@ -6,14 +6,12 @@ import com.sprint.summerproject.services.EmailService;
 import com.sprint.summerproject.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 
 @RestController
+@CrossOrigin
 public class CodeController {
 
     private final TelService telService;
@@ -31,6 +29,7 @@ public class CodeController {
             telService.sendCode(tel);
             return "Yes";
         } catch (ClientException e) {
+            e.printStackTrace();
             return "No";
         }
     }
