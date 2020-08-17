@@ -20,6 +20,16 @@ public class UserController {
         return userService.findAllUsers();
     }
 
+    @GetMapping("/user/tel")
+    public User getUserByTel(@RequestParam String tel) {
+        return userService.retrieveUserByTel(tel);
+    }
+
+    @GetMapping("/user/email")
+    public User getUserByEmail(@RequestParam String email) {
+        return userService.retrieveUserByEmail(email);
+    }
+
     @PostMapping("/user/tel")
     public String addUserByTel(@RequestParam String tel, @RequestParam String password) {
         try {
