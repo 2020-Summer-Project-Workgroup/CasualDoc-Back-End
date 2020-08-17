@@ -3,7 +3,6 @@ package com.sprint.summerproject.controllers;
 import com.aliyuncs.exceptions.ClientException;
 import com.sprint.summerproject.services.TelService;
 import com.sprint.summerproject.services.EmailService;
-import com.sprint.summerproject.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
@@ -45,21 +44,21 @@ public class CodeController {
     }
 
     @PostMapping("/code/email")
-    public Response sendCodeViaEmail(@RequestParam String email) {
+    public String sendCodeViaEmail(@RequestParam String email) {
         try {
             emailService.sendNotification(email);
-            return new Response(200, "Message sent successfully");
+            return "Yes";
         } catch (MailException | MessagingException e) {
-            return new Response(0, "Something went wrong");
+            return "No";
         }
     }
 
     @GetMapping("/code/email")
-    public Response checkCodeViaEmail(@RequestParam String email, @RequestParam String code) {
+    public String checkCodeViaEmail(@RequestParam String email, @RequestParam String code) {
         if (emailService.checkCode(email, code)) {
-            return new Response(200, "验证成功");
+            return "Yes";
         } else {
-            return new Response(0, "验证码不正确，请检查后输入");
+            return "No";
         }
     }
 
