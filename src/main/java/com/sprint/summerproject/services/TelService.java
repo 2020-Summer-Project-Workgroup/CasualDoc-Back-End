@@ -16,10 +16,12 @@ import org.springframework.stereotype.Service;
 public class TelService {
 
     private final CodeStorage codeStorage;
+    private final CodeGenerator codeGenerator;
 
     @Autowired
-    public TelService(CodeStorage codeStorage) {
+    public TelService(CodeStorage codeStorage, CodeGenerator codeGenerator) {
         this.codeStorage = codeStorage;
+        this.codeGenerator = codeGenerator;
     }
 
     public void sendCode(String tel) throws ClientException {
@@ -27,7 +29,7 @@ public class TelService {
         IAcsClient client = new DefaultAcsClient(profile);
 
         CommonRequest request = new CommonRequest();
-        String code = CodeGenerator.generateCode();
+        String code = codeGenerator.generateCode();
         request.setSysMethod(MethodType.POST);
         request.setSysDomain("dysmsapi.aliyuncs.com");
         request.setSysVersion("2017-05-25");

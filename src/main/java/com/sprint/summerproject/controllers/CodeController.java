@@ -36,7 +36,7 @@ public class CodeController {
     @GetMapping("/code/tel")
     public String checkCodeOfTel(@RequestParam String tel, @RequestParam String code) {
         String _code = telService.retrieveCode(tel);
-        if (code != null) {
+        if (_code != null) {
             return code.equals(_code) ? "Yes" : "No";
         } else {
             return "No";
