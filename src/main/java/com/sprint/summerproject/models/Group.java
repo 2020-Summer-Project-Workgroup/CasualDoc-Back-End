@@ -5,19 +5,33 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Document
 public class Group {
     @Id
     String id;
     String name;
-    List<File> files;
-    List<Map<String, String>> members;
+    Map<File, Integer> files;
+    Map<File, Set<String>> viewMembers;
+    Map<File, Set<String>> editMembers;
+    Map<String, Integer> members;
 
-    public Group(String name, List<File> files, List<Map<String, String>> members) {
+    public Group(String name, Map<File, Integer> files, Map<File, Set<String>> viewMembers,
+                 Map<File, Set<String>> editMembers, Map<String, Integer> members) {
         this.name = name;
         this.files = files;
+        this.viewMembers = viewMembers;
+        this.editMembers = editMembers;
         this.members = members;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -28,19 +42,35 @@ public class Group {
         this.name = name;
     }
 
-    public List<File> getFiles() {
+    public Map<File, Integer> getFiles() {
         return files;
     }
 
-    public void setFiles(List<File> files) {
+    public void setFiles(Map<File, Integer> files) {
         this.files = files;
     }
 
-    public List<Map<String, String>> getMembers() {
+    public Map<File, Set<String>> getViewMembers() {
+        return viewMembers;
+    }
+
+    public void setViewMembers(Map<File, Set<String>> viewMembers) {
+        this.viewMembers = viewMembers;
+    }
+
+    public Map<File, Set<String>> getEditMembers() {
+        return editMembers;
+    }
+
+    public void setEditMembers(Map<File, Set<String>> editMembers) {
+        this.editMembers = editMembers;
+    }
+
+    public Map<String, Integer> getMembers() {
         return members;
     }
 
-    public void setMembers(List<Map<String, String>> members) {
+    public void setMembers(Map<String, Integer> members) {
         this.members = members;
     }
 }
