@@ -1,5 +1,6 @@
 package com.sprint.summerproject.controllers;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.sprint.summerproject.services.FileService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.FileCopyUtils;
@@ -9,8 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("file")
@@ -50,6 +50,27 @@ public class FileController {
         FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(new File(filePath + fileName)));
         fileService.updateDocForUser(userId, fileName);
         return "Document updated successfully:\t" + fileName;
+    }
+
+    @GetMapping("/user")
+    public String getUserFile(String fileName) throws IOException {
+        return fileService.getDocOfUser(fileName);
+    }
+
+    @GetMapping("/user/all")
+    public List<com.sprint.summerproject.models.File> getUserFiles(@RequestParam String userId) {
+        return fileService.getUserFiles(userId);
+    }
+
+    @PutMapping("/user/favorite")
+    public String updateUserFavoriteFiles(@RequestParam String userId,
+                                          @RequestParam String fileName) {
+        return fileService.updateUserFavoriteFiles(userId, fileName);
+    }
+
+    @GetMapping("/user/favorite")
+    public List<com.sprint.summerproject.models.File> UserFavoriteFiles(@RequestParam String userId) {
+        return fileService.getUserFavoriteFiles(userId);
     }
 
 }
