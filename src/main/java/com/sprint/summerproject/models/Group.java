@@ -15,10 +15,10 @@ public class Group {
     Map<File, Integer> files;
     Map<File, Set<String>> viewMembers;
     Map<File, Set<String>> editMembers;
-    Map<String, Integer> members;
+    Map<User, Integer> members;
 
     public Group(String name, Map<File, Integer> files, Map<File, Set<String>> viewMembers,
-                 Map<File, Set<String>> editMembers, Map<String, Integer> members) {
+                 Map<File, Set<String>> editMembers, Map<User, Integer> members) {
         this.name = name;
         this.files = files;
         this.viewMembers = viewMembers;
@@ -66,11 +66,11 @@ public class Group {
         this.editMembers = editMembers;
     }
 
-    public Map<String, Integer> getMembers() {
+    public Map<User, Integer> getMembers() {
         return members;
     }
 
-    public void setMembers(Map<String, Integer> members) {
+    public void setMembers(Map<User, Integer> members) {
         this.members = members;
     }
 }
