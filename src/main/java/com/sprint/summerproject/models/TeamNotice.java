@@ -9,10 +9,10 @@ import java.util.Date;
 public class TeamNotice {
     @Id
     String id; //MongoDB自动添加的id
-    Integer	type; //type=1表示加入团队通知，2表示被踢出团队通知
+    Integer	type; //type=1表示加入团队通知，4表示被踢出团队通知
     String sentId; //发送者的用户id
     String sentName; //发送者
-    String content; //通知内容
+    String content; //团队名
     Boolean read; //false表示未读，true表示已读
     Date time; //发送时间
 
