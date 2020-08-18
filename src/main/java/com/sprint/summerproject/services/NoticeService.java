@@ -67,7 +67,11 @@ public class NoticeService {
         return noticeRepository.findNoticeById(noticeId);
     }
 
-    public boolean retrieveIsRead(String noticeId) {
+    public boolean retrieveIsReadNotice(String noticeId) {
         return noticeRepository.findNoticeById(noticeId).getRead();
+    }
+
+    public boolean retrieveIsReadTeamNotice(String noticeId) {
+        return teamNoticeRepository.findTeamNoticeById(noticeId).getRead();
     }
 }
