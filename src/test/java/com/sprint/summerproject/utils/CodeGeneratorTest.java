@@ -6,6 +6,6 @@ public class CodeGeneratorTest {
 
     @Test
     public void test() {
-        System.out.println(CodeGenerator.generateCode());
+        //System.out.println(CodeGenerator.generateCode());
     }
 }

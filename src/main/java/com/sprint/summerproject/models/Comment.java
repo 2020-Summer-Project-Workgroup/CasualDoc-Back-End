@@ -12,14 +12,18 @@ public class Comment {
     String id;
     String reviewer;
     Binary reviewerIcon;
-    Binary content;
+    String content;
     Date time;
 
-    public Comment(String reviewer, Binary reviewerIcon, Binary content, Date time) {
+    public Comment(String reviewer, Binary reviewerIcon, String content, Date time) {
         this.reviewer = reviewer;
         this.reviewerIcon = reviewerIcon;
         this.content = content;
         this.time = time;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getReviewer() {
@@ -38,11 +42,11 @@ public class Comment {
         this.reviewerIcon = reviewerIcon;
     }
 
-    public Binary getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(Binary content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
