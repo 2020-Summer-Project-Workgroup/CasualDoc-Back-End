@@ -1,6 +1,6 @@
 package com.sprint.summerproject.services;
 
-import com.sprint.summerproject.models.Code;
+import com.sprint.summerproject.storages.CodeStorage;
 import com.sprint.summerproject.utils.CodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -12,28 +12,29 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class EmailService {
 
-    private static Map<String, Code> codeMap = new ConcurrentHashMap<String, Code>();
+    private final CodeStorage codeStorage;
+    private final CodeGenerator codeGenerator;
     private final JavaMailSender javaMailSender;
     private final TemplateEngine templateEngine;
 
     @Autowired
-    public EmailService(JavaMailSender javaMailSender, TemplateEngine templateEngine) {
+    public EmailService(JavaMailSender javaMailSender, TemplateEngine templateEngine,
+                        CodeStorage codeStorage, CodeGenerator codeGenerator) {
         this.javaMailSender = javaMailSender;
         this.templateEngine = templateEngine;
+        this.codeStorage = codeStorage;
+        this.codeGenerator = codeGenerator;
     }
 
     public void sendNotification(String email) throws MailException, MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        String code = CodeGenerator.generateCode();
-        Code codeItem = new Code(code);
+        String code = codeGenerator.generateCode();
 
         Context context = new Context();
         context.setVariable("verificationCode", code);
@@ -45,13 +46,13 @@ public class EmailService {
         helper.setText(mail, true);
 
         javaMailSender.send(message);
-        codeMap.put(email, codeItem);
+        codeStorage.put(email, code);
     }
 
     public boolean checkCode(String email, String code) {
-        Code codeItem;
-        if ((codeItem = codeMap.get(email)) != null) {
-            return code.equals(codeItem.getCode());
+        String _code = codeStorage.get(email);
+        if (_code != null) {
+            return code.equals(_code);
         } else {
             return false;
         }
