@@ -12,6 +12,7 @@ public class Notice {
     String sendId;
     String sentName; //发送者
     String content; //通知内容
+    Boolean read; //false表示未读，true表示已读
     Date time; //发送时间
 
     public Notice(String sendId, String sentName, String content, Date time) {
@@ -19,6 +20,7 @@ public class Notice {
         this.sentName = sentName;
         this.content = content;
         this.time = time;
+        this.read = false;
     }
 
     public String getId() {
@@ -51,6 +53,14 @@ public class Notice {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Boolean getRead() {
+        return read;
+    }
+
+    public void setRead(Boolean read) {
+        this.read = read;
     }
 
     public Date getTime() {

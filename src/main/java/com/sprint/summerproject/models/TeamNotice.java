@@ -13,6 +13,7 @@ public class TeamNotice {
     String sentId; //发送者的用户id
     String sentName; //发送者
     String content; //通知内容
+    Boolean read; //false表示未读，true表示已读
     Date time; //发送时间
 
     public TeamNotice(Integer type, String sentId, String sentName, String content, Date time) {
@@ -20,6 +21,7 @@ public class TeamNotice {
         this.sentId = sentId;
         this.sentName = sentName;
         this.content = content;
+        this.read = false;
         this.time = time;
     }
 
@@ -61,6 +63,14 @@ public class TeamNotice {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Boolean getRead() {
+        return read;
+    }
+
+    public void setRead(Boolean read) {
+        this.read = read;
     }
 
     public Date getTime() {
