@@ -52,4 +52,25 @@ public class FileController {
         return "Document updated successfully:\t" + fileName;
     }
 
+    @GetMapping("/user")
+    public String getUserFile(String fileName) throws IOException {
+        return fileService.getDocOfUser(fileName);
+    }
+
+    @GetMapping("/user/all")
+    public List<com.sprint.summerproject.models.File> getUserFiles(@RequestParam String userId) {
+        return fileService.getUserFiles(userId);
+    }
+
+    @PutMapping("/user/favorite")
+    public String updateUserFavoriteFiles(@RequestParam String userId,
+                                          @RequestParam String fileName) {
+        return fileService.updateUserFavoriteFiles(userId, fileName);
+    }
+
+    @GetMapping("/user/favorite")
+    public List<com.sprint.summerproject.models.File> UserFavoriteFiles(@RequestParam String userId) {
+        return fileService.getUserFavoriteFiles(userId);
+    }
+
 }
