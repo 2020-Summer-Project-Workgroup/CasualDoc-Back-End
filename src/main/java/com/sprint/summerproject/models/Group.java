@@ -5,20 +5,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Document
 public class Group {
     @Id
     String id;
     String name;
-    Map<File, Integer> files;
-    Map<File, Set<String>> viewMembers;
-    Map<File, Set<String>> editMembers;
-    Map<User, Integer> members;
+    Map<String, Integer> files;
+    Map<String, List<String>> viewMembers;
+    Map<String, List<String>> editMembers;
+    Map<String, Integer> members;
 
-    public Group(String name, Map<File, Integer> files, Map<File, Set<String>> viewMembers,
-                 Map<File, Set<String>> editMembers, Map<User, Integer> members) {
+    public Group(String name, Map<String, Integer> files,
+                 Map<String, List<String>> viewMembers,
+                 Map<String, List<String>> editMembers,
+                 Map<String, Integer> members) {
         this.name = name;
         this.files = files;
         this.viewMembers = viewMembers;
@@ -42,35 +43,35 @@ public class Group {
         this.name = name;
     }
 
-    public Map<File, Integer> getFiles() {
+    public Map<String, Integer> getFiles() {
         return files;
     }
 
-    public void setFiles(Map<File, Integer> files) {
+    public void setFiles(Map<String, Integer> files) {
         this.files = files;
     }
 
-    public Map<File, Set<String>> getViewMembers() {
+    public Map<String, List<String>> getViewMembers() {
         return viewMembers;
     }
 
-    public void setViewMembers(Map<File, Set<String>> viewMembers) {
+    public void setViewMembers(Map<String, List<String>> viewMembers) {
         this.viewMembers = viewMembers;
     }
 
-    public Map<File, Set<String>> getEditMembers() {
+    public Map<String, List<String>> getEditMembers() {
         return editMembers;
     }
 
-    public void setEditMembers(Map<File, Set<String>> editMembers) {
+    public void setEditMembers(Map<String, List<String>> editMembers) {
         this.editMembers = editMembers;
     }
 
-    public Map<User, Integer> getMembers() {
+    public Map<String, Integer> getMembers() {
         return members;
     }
 
-    public void setMembers(Map<User, Integer> members) {
+    public void setMembers(Map<String, Integer> members) {
         this.members = members;
     }
 }
