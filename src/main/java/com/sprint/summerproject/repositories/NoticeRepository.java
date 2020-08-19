@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface NoticeRepository extends MongoRepository<Notice, String> {
+    Notice findNoticeById(String id);
 }
