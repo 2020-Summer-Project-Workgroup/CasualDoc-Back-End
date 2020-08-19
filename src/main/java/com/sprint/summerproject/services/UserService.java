@@ -6,6 +6,7 @@ import com.sprint.summerproject.models.TeamNotice;
 import com.sprint.summerproject.models.User;
 import com.sprint.summerproject.repositories.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -89,6 +90,30 @@ public class UserService {
 
     public User retrieveUserById(String id) {
         return userRepository.findUserById(id);
+    }
+
+    public void readNotice(String userId, String noticeId) {
+        boolean can = false;
+        for (String notice : userRepository.findUserById(userId).getNotices()) {
+            if (notice.equals(noticeId))
+                can = true;
+            if (noticeService.retrieveNotice(noticeId).getRead())
+                break;
+            if (can)
+                noticeService.retrieveNotice(noticeId).setRead(true);
+        }
+    }
+
+    public void readTeamNotice(String userId, String noticeId) {
+        boolean can = false;
+        for (String notice : userRepository.findUserById(userId).getTeamNotices()) {
+            if (notice.equals(noticeId))
+                can = true;
+            if (noticeService.retrieveTeamNotice(noticeId).getRead())
+                break;
+            if (can)
+                noticeService.retrieveTeamNotice(noticeId).setRead(true);
+        }
     }
 
     public void addTeamNotice(String userId, String noticeId) {
