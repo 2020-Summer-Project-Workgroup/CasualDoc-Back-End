@@ -2,7 +2,7 @@ package com.sprint.summerproject.controllers;
 
 import com.sprint.summerproject.models.User;
 import com.sprint.summerproject.services.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +15,7 @@ public class SessionController {
         this.userService = userService;
     }
 
-    @GetMapping("/session/tel")
+    @PostMapping("/session/tel")
     public String verifyTel(@RequestParam String tel, @RequestParam String password) {
         User user = userService.retrieveUserByTel(tel);
         if (user != null) {
@@ -26,7 +26,7 @@ public class SessionController {
         }
     }
 
-    @GetMapping("/session/email")
+    @PostMapping("/session/email")
     public String verifyEmail(@RequestParam String email, @RequestParam String password) {
         User user = userService.retrieveUserByEmail(email);
         if (user != null) {
