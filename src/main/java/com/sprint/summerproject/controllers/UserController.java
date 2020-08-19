@@ -50,7 +50,12 @@ public class UserController {
         }
     }
 
-    @PutMapping("user/info")
+    @GetMapping("/user/info")
+    public User updateUserInfo(@RequestParam String id) {
+        return userService.retrieveUserById(id);
+    }
+
+    @PutMapping("/user/info")
     public String updateUserInfo(@RequestParam String id,
                                  @RequestParam String field,
                                  @RequestParam int type) {

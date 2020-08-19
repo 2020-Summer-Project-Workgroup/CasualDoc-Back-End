@@ -15,7 +15,7 @@ public class User {
     String email;
     String tel;
     String password;
-    List<String> files;
+    List<File> files;
     List<String> notices;
     List<String> teamNotices;
 
@@ -24,7 +24,7 @@ public class User {
         this.email = email;
         this.tel = tel;
         this.password = password;
-        this.files = new ArrayList<String>();
+        this.files = new ArrayList<File>();
         this.notices = new LinkedList<String>();
         this.teamNotices = new LinkedList<String>();
     }
@@ -69,11 +69,11 @@ public class User {
         this.password = password;
     }
 
-    public List<String> getFiles() {
+    public List<File> getFiles() {
         return files;
     }
 
-    public void setFiles(List<String> files) {
+    public void setFiles(List<File> files) {
         this.files = files;
     }
 
