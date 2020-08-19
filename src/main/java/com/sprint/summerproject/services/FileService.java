@@ -129,6 +129,7 @@ public class FileService {
     public void updateUserRecentFiles(String userId, String fileId) {
         User user = userService.retrieveUserById(userId);
         List<String> userRecentlyViewed = user.getRecentlyViewed();
+        userRecentlyViewed.removeIf(userFile -> userFile.equals(fileId));
         userRecentlyViewed.add(fileId);
         userService.writeUser(user);
     }
@@ -140,7 +141,7 @@ public class FileService {
         for (String item : userRecentlyViewed) {
             userRecentlyViewedFiles.add(fileRepository.findFileById(item));
         }
-        return userRecentlyViewedFiles;
+        return sortFilesByDate(userRecentlyViewedFiles);
     }
 
 }
