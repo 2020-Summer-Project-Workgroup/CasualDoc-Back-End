@@ -13,12 +13,10 @@ import java.util.List;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-    private FileService fileService;
     private final UserService userService;
 
-    public CommentService(CommentRepository commentRepository, FileService fileService, UserService userService) {
+    public CommentService(CommentRepository commentRepository, UserService userService) {
         this.commentRepository = commentRepository;
-        this.fileService = fileService;
         this.userService = userService;
     }
 
@@ -26,12 +24,12 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-    public void addCommentToUserFile(String revieweeId, String fileName, String reviewerId, String content) {
+    public void addCommentToUserFile(String revieweeId, String fileId, String reviewerId, String content) {
         Comment comment = new Comment(reviewerId, null, content, new Date());
         User user = userService.retrieveUserById(revieweeId);
         List<File> userFiles = user.getFiles();
         for (File file : userFiles) {
-            if (file.getFileName().equals(fileName)) {
+            if (file.getId().equals(fileId)) {
                 List<Comment> comments = file.getComments();
                 comments.add(comment);
                 commentRepository.save(comment);
@@ -40,11 +38,11 @@ public class CommentService {
         userService.writeUser(user);
     }
 
-    public void deleteCommentFromUserFile(String revieweeId, String fileName, String commentId) {
+    public void deleteCommentFromUserFile(String revieweeId, String fileId, String commentId) {
         User user = userService.retrieveUserById(revieweeId);
         List<File> userFiles = user.getFiles();
         for (File file : userFiles) {
-            if (file.getFileName().equals(fileName)) {
+            if (file.getId().equals(fileId)) {
                 List<Comment> comments = file.getComments();
                 comments.removeIf(comment -> comment.getId().equals(commentId));
             }

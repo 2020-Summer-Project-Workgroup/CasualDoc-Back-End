@@ -22,14 +22,14 @@ public class CommentController {
     }
 
     @PutMapping("/user/file")
-    public String addFileComment(String revieweeId, String fileName, String reviewerId, String content) {
-        commentService.addCommentToUserFile(revieweeId, fileName, reviewerId, content);
+    public String addFileComment(String revieweeId, String fileId, String reviewerId, String content) {
+        commentService.addCommentToUserFile(revieweeId, fileId, reviewerId, content);
         return "Yes";
     }
 
     @DeleteMapping("/user/file")
-    public String deleteFileComment(String revieweeId, String fileName, String commentId) {
-        commentService.deleteCommentFromUserFile(revieweeId, fileName, commentId);
+    public String deleteFileComment(String revieweeId, String fileId, String commentId) {
+        commentService.deleteCommentFromUserFile(revieweeId, fileId, commentId);
         return "Yes";
     }
 
