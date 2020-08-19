@@ -52,52 +52,36 @@ public class UserController {
 
     @PutMapping("user/info")
     public String updateUserInfo(@RequestParam String id,
-                                 @RequestParam String name,
-                                 @RequestParam String email,
-                                 @RequestParam String tel) {
+                                 @RequestParam String field,
+                                 @RequestParam int type) {
         User user = userService.retrieveUserById(id);
-        int modifiedFieldsWeight = 0;
-        if (!email.equals(user.getEmail())) {
-            modifiedFieldsWeight += 1;
-        }
-        if (!tel.equals(user.getTel())) {
-            modifiedFieldsWeight += 2;
-        }
-        user.setName(name);
-        switch (modifiedFieldsWeight) {
+        switch (type) {
             case 0:
+                user.setName(field);
                 userService.writeUser(user);
                 break;
             case 1:
-                if (userService.retrieveUserByEmail(email) == null) {
-                    user.setEmail(email);
+                User someUser1 = userService.retrieveUserByEmail(field);
+                if (someUser1 == null || someUser1.getId().equals(user.getId())) {
+                    user.setEmail(field);
                     userService.writeUser(user);
                 }
                 else {
-                    return "Email already registered";
+                    return "No";
                 }
                 break;
             case 2:
-                if (userService.retrieveUserByTel(tel) == null) {
-                    user.setTel(tel);
+                User someUser2 = userService.retrieveUserByTel(field);
+                if (someUser2 == null || someUser2.getId().equals(user.getId())) {
+                    user.setTel(field);
                     userService.writeUser(user);
                 }
                 else {
-                    return "Tel already registered";
-                }
-                break;
-            case 3:
-                if (userService.retrieveUserByEmail(email) == null && userService.retrieveUserByTel(tel) == null) {
-                    user.setEmail(email);
-                    user.setTel(tel);
-                    userService.writeUser(user);
-                }
-                else {
-                    return "Email or tel already registered";
+                    return "No";
                 }
                 break;
         }
-        return "User information updated successfully";
+        return "Yes";
     }
 
     @PutMapping("user/password")
@@ -108,10 +92,10 @@ public class UserController {
         if (oldPassword.equals(user.getPassword())) {
             user.setPassword(newPassword);
             userService.writeUser(user);
-            return "Password updated successfully";
+            return "Yes";
         }
         else {
-            return "Wrong old password";
+            return "No";
         }
     }
 
