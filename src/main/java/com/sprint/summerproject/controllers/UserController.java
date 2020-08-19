@@ -51,7 +51,7 @@ public class UserController {
     }
 
     @GetMapping("/user/info")
-    public User updateUserInfo(@RequestParam String id) {
+    public User getUserInfo(@RequestParam String id) {
         return userService.retrieveUserById(id);
     }
 
