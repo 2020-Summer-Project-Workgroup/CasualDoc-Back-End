@@ -51,7 +51,7 @@ public class FileController {
 
     @GetMapping("/user/all")
     public List<File> getUserFiles(@RequestParam String userId) {
-        return fileService.getUserFiles(userId);
+        return fileService.getUserActiveFiles(userId);
     }
 
     @PutMapping("/user/favorite")
@@ -63,6 +63,17 @@ public class FileController {
     @GetMapping("/user/favorite/all")
     public List<File> UserFavoriteFiles(@RequestParam String userId) {
         return fileService.getUserFavoriteFiles(userId);
+    }
+
+    @PutMapping("/user/recycle")
+    public String updateUserRecycleBin(String fileId) {
+        fileService.updateUserFileStatus(fileId);
+        return "Yes";
+    }
+
+    @GetMapping("/user/recycle")
+    public List<File> getUserRecycleBin(String userId) {
+        return fileService.getUserTrashedFiles(userId);
     }
 
 }

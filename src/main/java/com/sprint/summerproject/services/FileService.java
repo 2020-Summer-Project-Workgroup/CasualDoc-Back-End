@@ -72,12 +72,15 @@ public class FileService {
         return files;
     }
 
-    public List<File> getUserFiles(String userId) {
+    public List<File> getUserActiveFiles(String userId) {
         User user = userService.retrieveUserById(userId);
         List<File> userFileIdList = user.getFiles();
         List<File> userFiles = new ArrayList<>();
-        for (File userfile : userFileIdList) {
-            userFiles.add(fileRepository.findFileById(userfile.getId()));
+        for (File userFile : userFileIdList) {
+            File toBeAdded = fileRepository.findFileById(userFile.getId());
+            if (!toBeAdded.isTrashed()) {
+                userFiles.add(toBeAdded);
+            }
         }
         return sortFilesByDate(userFiles);
     }
@@ -102,6 +105,25 @@ public class FileService {
 
     public File writeFile(File file) {
         return fileRepository.save(file);
+    }
+
+    public void updateUserFileStatus(String fileId) {
+        File file = fileRepository.findFileById(fileId);
+        file.setTrashed(!file.isTrashed());
+        fileRepository.save(file);
+    }
+
+    public List<File> getUserTrashedFiles(String userId) {
+        User user = userService.retrieveUserById(userId);
+        List<File> userFileIdList = user.getFiles();
+        List<File> userFiles = new ArrayList<>();
+        for (File userFile : userFileIdList) {
+            File toBeAdded = fileRepository.findFileById(userFile.getId());
+            if (toBeAdded.isTrashed()) {
+                userFiles.add(toBeAdded);
+            }
+        }
+        return sortFilesByDate(userFiles);
     }
 
 }

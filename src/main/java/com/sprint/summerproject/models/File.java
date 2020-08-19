@@ -17,6 +17,7 @@ public class File {
     Date time;
     List<Comment> comments;
     Map<String, String> access;
+    boolean isTrashed;
 
     public File(String title, String content, Date time, Map<String, String> access) {
         this.title = title;
@@ -24,6 +25,7 @@ public class File {
         this.time = time;
         this.comments = new ArrayList<>();
         this.access = access;
+        this.isTrashed = false;
     }
 
     public String getId() {
@@ -68,6 +70,14 @@ public class File {
 
     public void setAccess(Map<String, String> access) {
         this.access = access;
+    }
+
+    public boolean isTrashed() {
+        return isTrashed;
+    }
+
+    public void setTrashed(boolean trashed) {
+        isTrashed = trashed;
     }
 
 }
