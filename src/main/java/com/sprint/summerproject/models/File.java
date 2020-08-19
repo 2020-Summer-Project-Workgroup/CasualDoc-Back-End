@@ -1,6 +1,5 @@
 package com.sprint.summerproject.models;
 
-import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,16 +12,14 @@ import java.util.Map;
 public class File {
     @Id
     String id;
-    String fileName;
     String title;
-    Binary content;
+    String content;
     Date time;
     List<Comment> comments;
     Map<String, String> access;
     boolean favorite;
 
-    public File(String title, String fileName, Binary content, Date time, Map<String, String> access) {
-        this.fileName = fileName;
+    public File(String title, String content, Date time, Map<String, String> access) {
         this.title = title;
         this.content = content;
         this.time = time;
@@ -35,14 +32,6 @@ public class File {
         return id;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -51,11 +40,11 @@ public class File {
         this.title = title;
     }
 
-    public Binary getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(Binary content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
