@@ -21,6 +21,11 @@ public class FileController {
         return fileService.findAllFiles();
     }
 
+    @GetMapping("/info")
+    public File getFileInfo(String id) {
+        return fileService.retrieveFileById(id);
+    }
+
     @PostMapping("/user")
     public String uploadUserFile(String userId,
                                  String title,
@@ -36,11 +41,6 @@ public class FileController {
                                  String content) {
         fileService.updateDocForUser(userId, fileId, title, content);
         return "Yes";
-    }
-
-    @GetMapping("/user")
-    public File getUserFile(String fileId) {
-        return fileService.getDocOfUser(fileId);
     }
 
     @DeleteMapping("/user")

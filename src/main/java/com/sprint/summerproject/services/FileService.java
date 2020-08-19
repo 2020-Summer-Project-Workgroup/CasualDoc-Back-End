@@ -22,6 +22,10 @@ public class FileService {
         return fileRepository.findAll();
     }
 
+    public File retrieveFileById(String id) {
+        return fileRepository.findFileById(id);
+    }
+
     public void addDocToUser(String userId,
                              String title,
                              String content) {
@@ -53,15 +57,14 @@ public class FileService {
         userService.writeUser(user);
     }
 
-    public File getDocOfUser(String fileId){
-        return fileRepository.findFileById(fileId);
-    }
-
     public void deleteDocFromUser(String userId, String fileId) {
         User user = userService.retrieveUserById(userId);
         List<File> userFiles = user.getFiles();
         userFiles.removeIf(userFile -> userFile.getId().equals(fileId));
+        user.setFiles(userFiles);
         userService.writeUser(user);
+        File file = fileRepository.findFileById(fileId);
+        fileRepository.delete(file);
     }
 
     public List<File> sortFilesByDate(List<File> files) {
@@ -69,34 +72,36 @@ public class FileService {
         return files;
     }
 
-    public List<File> getUserFiles(String id) {
-        User user = userService.retrieveUserById(id);
-        List<File> userFiles = user.getFiles();
+    public List<File> getUserFiles(String userId) {
+        User user = userService.retrieveUserById(userId);
+        List<File> userFileIdList = user.getFiles();
+        List<File> userFiles = new ArrayList<>();
+        for (File userfile : userFileIdList) {
+            userFiles.add(fileRepository.findFileById(userfile.getId()));
+        }
         return sortFilesByDate(userFiles);
     }
 
     public String updateUserFavoriteFiles(String userId, String fileId) {
         User user = userService.retrieveUserById(userId);
-        List<File> userFiles = user.getFiles();
-        for (File file : userFiles) {
-            if (file.getId().equals(fileId)) {
-                file.setFavorite(!file.isFavorite());
-                fileRepository.save(file);
-            }
+        List<File> userFavorites = user.getFavorites();
+        File file = fileRepository.findFileById(fileId);
+        boolean fileInList = userFavorites.removeIf(userFavorite -> userFavorite.getId().equals(fileId));
+        if (!fileInList) {
+            userFavorites.add(file);
         }
+        user.setFavorites(userFavorites);
         userService.writeUser(user);
         return "Yes";
     }
 
     public List<File> getUserFavoriteFiles(String id) {
         User user = userService.retrieveUserById(id);
-        List<File> userFiles = user.getFiles();
-        List<File> userFavoriteFiles = new ArrayList<>();
-        for (File file : userFiles) {
-            if (file.isFavorite())
-                userFavoriteFiles.add(file);
-        }
-        return userFavoriteFiles;
+        return sortFilesByDate(user.getFavorites());
+    }
+
+    public File writeFile(File file) {
+        return fileRepository.save(file);
     }
 
 }

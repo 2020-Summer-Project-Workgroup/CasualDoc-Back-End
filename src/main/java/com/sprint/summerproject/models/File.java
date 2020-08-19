@@ -17,7 +17,6 @@ public class File {
     Date time;
     List<Comment> comments;
     Map<String, String> access;
-    boolean favorite;
 
     public File(String title, String content, Date time, Map<String, String> access) {
         this.title = title;
@@ -25,7 +24,6 @@ public class File {
         this.time = time;
         this.comments = new ArrayList<>();
         this.access = access;
-        this.favorite = false;
     }
 
     public String getId() {
@@ -72,11 +70,4 @@ public class File {
         this.access = access;
     }
 
-    public boolean isFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(boolean favorite) {
-        this.favorite = favorite;
-    }
 }
