@@ -76,4 +76,15 @@ public class FileController {
         return fileService.getUserTrashedFiles(userId);
     }
 
+    @PostMapping("/user/recent")
+    public String updateUserRecentFiles(String userId, String fileId) {
+        fileService.updateUserRecentFiles(userId, fileId);
+        return "Yes";
+    }
+
+    @GetMapping("/user/recent")
+    public List<File> getUserRecentFiles(String userId) {
+        return fileService.getUserRecentFiles(userId);
+    }
+
 }

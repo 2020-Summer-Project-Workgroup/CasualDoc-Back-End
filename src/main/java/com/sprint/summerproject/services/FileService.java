@@ -126,4 +126,21 @@ public class FileService {
         return sortFilesByDate(userFiles);
     }
 
+    public void updateUserRecentFiles(String userId, String fileId) {
+        User user = userService.retrieveUserById(userId);
+        List<String> userRecentlyViewed = user.getRecentlyViewed();
+        userRecentlyViewed.add(fileId);
+        userService.writeUser(user);
+    }
+
+    public List<File> getUserRecentFiles(String userId) {
+        User user = userService.retrieveUserById(userId);
+        List<String> userRecentlyViewed = user.getRecentlyViewed();
+        List<File> userRecentlyViewedFiles = new ArrayList<>();
+        for (String item : userRecentlyViewed) {
+            userRecentlyViewedFiles.add(fileRepository.findFileById(item));
+        }
+        return userRecentlyViewedFiles;
+    }
+
 }

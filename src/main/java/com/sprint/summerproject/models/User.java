@@ -17,6 +17,7 @@ public class User {
     String password;
     List<File> files;
     List<File> favorites;
+    List<String> recentlyViewed;
     List<String> notices;
     List<String> teamNotices;
 
@@ -27,6 +28,7 @@ public class User {
         this.password = password;
         this.files = new ArrayList<>();
         this.favorites = new ArrayList<>();
+        this.recentlyViewed = new ArrayList<>();
         this.notices = new LinkedList<String>();
         this.teamNotices = new LinkedList<String>();
     }
@@ -85,6 +87,14 @@ public class User {
 
     public void setFavorites(List<File> favorites) {
         this.favorites = favorites;
+    }
+
+    public List<String> getRecentlyViewed() {
+        return recentlyViewed;
+    }
+
+    public void setRecentlyViewed(List<String> recentlyViewed) {
+        this.recentlyViewed = recentlyViewed;
     }
 
     public List<String> getNotices() {
