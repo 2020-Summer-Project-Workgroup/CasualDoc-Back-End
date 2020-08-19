@@ -16,6 +16,7 @@ public class User {
     String tel;
     String password;
     List<File> files;
+    List<File> favorites;
     List<String> notices;
     List<String> teamNotices;
 
@@ -24,7 +25,8 @@ public class User {
         this.email = email;
         this.tel = tel;
         this.password = password;
-        this.files = new ArrayList<File>();
+        this.files = new ArrayList<>();
+        this.favorites = new ArrayList<>();
         this.notices = new LinkedList<String>();
         this.teamNotices = new LinkedList<String>();
     }
@@ -75,6 +77,14 @@ public class User {
 
     public void setFiles(List<File> files) {
         this.files = files;
+    }
+
+    public List<File> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(List<File> favorites) {
+        this.favorites = favorites;
     }
 
     public List<String> getNotices() {
