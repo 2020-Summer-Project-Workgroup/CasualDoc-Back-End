@@ -1,12 +1,11 @@
 package com.sprint.summerproject.services;
 
-import com.sprint.summerproject.exception.UserExistException;
+import com.sprint.summerproject.exceptions.UserExistException;
 import com.sprint.summerproject.models.Notice;
 import com.sprint.summerproject.models.TeamNotice;
 import com.sprint.summerproject.models.User;
 import com.sprint.summerproject.repositories.UserRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

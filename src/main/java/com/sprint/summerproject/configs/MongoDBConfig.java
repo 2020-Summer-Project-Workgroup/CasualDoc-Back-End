@@ -1,4 +1,4 @@
-package com.sprint.summerproject.config;
+package com.sprint.summerproject.configs;
 
 import com.sprint.summerproject.models.User;
 import com.sprint.summerproject.repositories.UserRepository;
@@ -14,8 +14,8 @@ public class MongoDBConfig {
     @Bean
     CommandLineRunner commandLineRunner(UserRepository userRepository) {
         return strings -> {
-            userRepository.save(new User("Kawasaki", "kawasaki@gmail.com", "12887364020", "2049"));
-            userRepository.save(new User("Richard", "richard@163.com", "50062998023", "1167"));
+//            userRepository.save(new User("Kawasaki", "kawasaki@gmail.com", "12887364020", "2049"));
+//            userRepository.save(new User("Richard", "richard@163.com", "50062998023", "1167"));
         };
     }
 }
