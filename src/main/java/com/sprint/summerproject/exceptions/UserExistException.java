@@ -1,4 +1,4 @@
-package com.sprint.summerproject.exception;
+package com.sprint.summerproject.exceptions;
 
 public class UserExistException extends Exception {
 }

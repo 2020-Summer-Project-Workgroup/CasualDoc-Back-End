@@ -1,4 +1,4 @@
-package com.sprint.summerproject.config;
+package com.sprint.summerproject.configs;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
