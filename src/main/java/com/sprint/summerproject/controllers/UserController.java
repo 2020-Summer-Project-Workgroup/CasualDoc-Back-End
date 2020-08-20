@@ -4,6 +4,7 @@ import com.sprint.summerproject.exception.UserExistException;
 import com.sprint.summerproject.models.Notice;
 import com.sprint.summerproject.models.TeamNotice;
 import com.sprint.summerproject.models.User;
+import com.sprint.summerproject.repositories.UserRepository;
 import com.sprint.summerproject.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +13,11 @@ import java.util.List;
 @RestController
 public class UserController {
     private final UserService userService;
+    private final UserRepository userRepository;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/user/all")
@@ -30,6 +33,11 @@ public class UserController {
     @GetMapping("/user/email")
     public User getUserByEmail(@RequestParam String email) {
         return userService.retrieveUserByEmail(email);
+    }
+
+    @GetMapping("/user/regex")
+    public List<User> searchUser(@RequestParam String userId) {
+        return userRepository.findUsersByTelRegex(userId);
     }
 
     @GetMapping("/user/notice/number")

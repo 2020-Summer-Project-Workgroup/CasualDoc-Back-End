@@ -27,7 +27,7 @@ public class UserService {
         User user = userRepository.findUserByTel(tel);
         if(user == null) {
             userRepository.save(new User("手机用户" + tel,
-                    null, tel, password));
+                    "", tel, password));
         } else {
             throw new UserExistException();
         }
@@ -37,7 +37,7 @@ public class UserService {
         User user = userRepository.findUserByEmail(email);
         if(user == null) {
             userRepository.save(new User(email.split("@")[0],
-                    email, null, password));
+                    email, "", password));
         } else {
             throw new UserExistException();
         }
