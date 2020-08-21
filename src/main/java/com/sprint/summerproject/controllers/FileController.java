@@ -60,7 +60,7 @@ public class FileController {
     }
 
     @GetMapping("/user/favorite/all")
-    public List<File> UserFavoriteFiles(@RequestParam String userId) {
+    public List<File> getUserFavoriteFiles(@RequestParam String userId) {
         return fileService.getUserFavoriteFiles(userId);
     }
 

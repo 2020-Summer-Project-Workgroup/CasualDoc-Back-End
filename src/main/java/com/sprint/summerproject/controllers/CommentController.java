@@ -1,6 +1,7 @@
 package com.sprint.summerproject.controllers;
 
 import com.sprint.summerproject.models.Comment;
+import com.sprint.summerproject.models.File;
 import com.sprint.summerproject.services.CommentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +23,8 @@ public class CommentController {
     }
 
     @PostMapping("/file")
-    public String addFileComment(String fileId, String reviewerId, String content) {
-        commentService.addCommentToFile(fileId, reviewerId, content);
-        return "Yes";
+    public File addFileComment(String fileId, String reviewerId, String content) {
+        return commentService.addCommentToFile(fileId, reviewerId, content);
     }
 
     @DeleteMapping("/file")

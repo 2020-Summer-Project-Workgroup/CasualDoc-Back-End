@@ -23,14 +23,15 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-    public void addCommentToFile(String fileId, String reviewerId, String content) {
+    public File addCommentToFile(String fileId, String reviewerId, String content) {
         File file = fileService.retrieveFileById(fileId);
         List<Comment> comments = file.getComments();
         Comment comment = new Comment(reviewerId, null, content, new Date());
-        commentRepository.save(comment);
+        comment = commentRepository.save(comment);
         comments.add(comment);
         file.setComments(comments);
         fileService.writeFile(file);
+        return file;
     }
 
     public void deleteCommentFromFile(String fileId, String commentId) {
