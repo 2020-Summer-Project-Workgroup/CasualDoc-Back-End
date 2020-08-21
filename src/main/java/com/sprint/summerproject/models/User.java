@@ -15,8 +15,8 @@ public class User {
     String email;
     String tel;
     String password;
-    List<File> files;
-    List<File> favorites;
+    List<String> files;
+    List<String> favorites;
     List<String> recentlyViewed;
     List<String> notices;
     List<String> teamNotices;
@@ -73,19 +73,19 @@ public class User {
         this.password = password;
     }
 
-    public List<File> getFiles() {
+    public List<String> getFiles() {
         return files;
     }
 
-    public void setFiles(List<File> files) {
+    public void setFiles(List<String> files) {
         this.files = files;
     }
 
-    public List<File> getFavorites() {
+    public List<String> getFavorites() {
         return favorites;
     }
 
-    public void setFavorites(List<File> favorites) {
+    public void setFavorites(List<String> favorites) {
         this.favorites = favorites;
     }
 

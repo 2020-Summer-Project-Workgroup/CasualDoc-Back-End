@@ -26,18 +26,19 @@ public class FileService {
         return fileRepository.findFileById(id);
     }
 
-    public void addDocToUser(String userId,
+    public File addDocToUser(String userId,
                              String title,
                              String content) {
         User user = userService.retrieveUserById(userId);
         Map<String, String> access = new HashMap<>();
         access.put(userId, "Owner");
         File file = new File(title, content, new Date(), access);
-        fileRepository.save(file);
-        List<File> userFiles = user.getFiles();
-        userFiles.add(file);
+        file = fileRepository.save(file);
+        List<String> userFiles = user.getFiles();
+        userFiles.add(file.getId());
         user.setFiles(userFiles);
         userService.writeUser(user);
+        return file;
     }
 
     public void updateDocForUser(String userId,
@@ -50,17 +51,17 @@ public class FileService {
         file.setContent(content);
         file.setTime(new Date());
         fileRepository.save(file);
-        List<File> userFiles = user.getFiles();
-        userFiles.removeIf(userFile -> userFile.getId().equals(fileId));
-        userFiles.add(file);
+        List<String> userFiles = user.getFiles();
+        userFiles.removeIf(userFile -> userFile.equals(fileId));
+        userFiles.add(file.getId());
         user.setFiles(userFiles);
         userService.writeUser(user);
     }
 
     public void deleteDocFromUser(String userId, String fileId) {
         User user = userService.retrieveUserById(userId);
-        List<File> userFiles = user.getFiles();
-        userFiles.removeIf(userFile -> userFile.getId().equals(fileId));
+        List<String> userFiles = user.getFiles();
+        userFiles.removeIf(userFile -> userFile.equals(fileId));
         user.setFiles(userFiles);
         userService.writeUser(user);
         File file = fileRepository.findFileById(fileId);
@@ -74,10 +75,10 @@ public class FileService {
 
     public List<File> getUserActiveFiles(String userId) {
         User user = userService.retrieveUserById(userId);
-        List<File> userFileIdList = user.getFiles();
+        List<String> userFileIdList = user.getFiles();
         List<File> userFiles = new ArrayList<>();
-        for (File userFile : userFileIdList) {
-            File toBeAdded = fileRepository.findFileById(userFile.getId());
+        for (String userFileId : userFileIdList) {
+            File toBeAdded = fileRepository.findFileById(userFileId);
             if (!toBeAdded.isTrashed()) {
                 userFiles.add(toBeAdded);
             }
@@ -87,20 +88,24 @@ public class FileService {
 
     public String updateUserFavoriteFiles(String userId, String fileId) {
         User user = userService.retrieveUserById(userId);
-        List<File> userFavorites = user.getFavorites();
-        File file = fileRepository.findFileById(fileId);
-        boolean fileInList = userFavorites.removeIf(userFavorite -> userFavorite.getId().equals(fileId));
+        List<String> userFavorites = user.getFavorites();
+        boolean fileInList = userFavorites.removeIf(userFavorite -> userFavorite.equals(fileId));
         if (!fileInList) {
-            userFavorites.add(file);
+            userFavorites.add(fileId);
         }
         user.setFavorites(userFavorites);
         userService.writeUser(user);
         return "Yes";
     }
 
-    public List<File> getUserFavoriteFiles(String id) {
-        User user = userService.retrieveUserById(id);
-        return sortFilesByDate(user.getFavorites());
+    public List<File> getUserFavoriteFiles(String userId) {
+        User user = userService.retrieveUserById(userId);
+        List<String> userFileIdList = user.getFavorites();
+        List<File> userFavoriteFiles = new ArrayList<>();
+        for (String userFileId : userFileIdList) {
+            userFavoriteFiles.add(fileRepository.findFileById(userFileId));
+        }
+        return sortFilesByDate(userFavoriteFiles);
     }
 
     public File writeFile(File file) {
@@ -115,10 +120,10 @@ public class FileService {
 
     public List<File> getUserTrashedFiles(String userId) {
         User user = userService.retrieveUserById(userId);
-        List<File> userFileIdList = user.getFiles();
+        List<String> userFileIdList = user.getFiles();
         List<File> userFiles = new ArrayList<>();
-        for (File userFile : userFileIdList) {
-            File toBeAdded = fileRepository.findFileById(userFile.getId());
+        for (String userFile : userFileIdList) {
+            File toBeAdded = fileRepository.findFileById(userFile);
             if (toBeAdded.isTrashed()) {
                 userFiles.add(toBeAdded);
             }

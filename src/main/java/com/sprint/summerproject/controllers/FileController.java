@@ -22,16 +22,15 @@ public class FileController {
     }
 
     @GetMapping("/info")
-    public File getFileInfo(String id) {
-        return fileService.retrieveFileById(id);
+    public File getFileInfo(String fileId) {
+        return fileService.retrieveFileById(fileId);
     }
 
     @PostMapping("/user")
-    public String uploadUserFile(String userId,
-                                 String title,
-                                 String content) {
-        fileService.addDocToUser(userId, title, content);
-        return "Yes";
+    public File uploadUserFile(String userId,
+                               String title,
+                               String content) {
+        return fileService.addDocToUser(userId, title, content);
     }
 
     @PutMapping("/user")
@@ -71,7 +70,7 @@ public class FileController {
         return "Yes";
     }
 
-    @GetMapping("/user/recycle")
+    @GetMapping("/user/recycle/all")
     public List<File> getUserRecycleBin(String userId) {
         return fileService.getUserTrashedFiles(userId);
     }
@@ -82,7 +81,7 @@ public class FileController {
         return "Yes";
     }
 
-    @GetMapping("/user/recent")
+    @GetMapping("/user/recent/all")
     public List<File> getUserRecentFiles(String userId) {
         return fileService.getUserRecentFiles(userId);
     }
