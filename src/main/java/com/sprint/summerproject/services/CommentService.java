@@ -13,10 +13,12 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final FileService fileService;
+    private final UserService userService;
 
-    public CommentService(CommentRepository commentRepository, FileService fileService) {
+    public CommentService(CommentRepository commentRepository, FileService fileService, UserService userService) {
         this.commentRepository = commentRepository;
         this.fileService = fileService;
+        this.userService = userService;
     }
 
     public List<Comment> findAllComments() {
@@ -26,7 +28,8 @@ public class CommentService {
     public File addCommentToFile(String fileId, String reviewerId, String content) {
         File file = fileService.retrieveFileById(fileId);
         List<Comment> comments = file.getComments();
-        Comment comment = new Comment(reviewerId, null, content, new Date());
+        String reviewerName = userService.retrieveUserById(reviewerId).getName();
+        Comment comment = new Comment(reviewerName, null, content, new Date());
         comment = commentRepository.save(comment);
         comments.add(comment);
         file.setComments(comments);
@@ -34,12 +37,13 @@ public class CommentService {
         return file;
     }
 
-    public void deleteCommentFromFile(String fileId, String commentId) {
+    public File deleteCommentFromFile(String fileId, String commentId) {
         File file = fileService.retrieveFileById(fileId);
         List<Comment> comments = file.getComments();
         comments.removeIf(comment -> comment.getId().equals(commentId));
         file.setComments(comments);
         fileService.writeFile(file);
+        return file;
     }
 
 }
