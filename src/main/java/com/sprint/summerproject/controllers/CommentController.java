@@ -22,9 +22,8 @@ public class CommentController {
     }
 
     @PostMapping("/file")
-    public String addFileComment(String fileId, String reviewerId, String content) {
-        commentService.addCommentToFile(fileId, reviewerId, content);
-        return "Yes";
+    public Comment addFileComment(String fileId, String reviewerId, String content) {
+        return commentService.addCommentToFile(fileId, reviewerId, content);
     }
 
     @DeleteMapping("/file")
