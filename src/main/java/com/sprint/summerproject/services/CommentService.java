@@ -23,7 +23,7 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-    public Comment addCommentToFile(String fileId, String reviewerId, String content) {
+    public File addCommentToFile(String fileId, String reviewerId, String content) {
         File file = fileService.retrieveFileById(fileId);
         List<Comment> comments = file.getComments();
         Comment comment = new Comment(reviewerId, null, content, new Date());
@@ -31,7 +31,7 @@ public class CommentService {
         comments.add(comment);
         file.setComments(comments);
         fileService.writeFile(file);
-        return comment;
+        return file;
     }
 
     public void deleteCommentFromFile(String fileId, String commentId) {
