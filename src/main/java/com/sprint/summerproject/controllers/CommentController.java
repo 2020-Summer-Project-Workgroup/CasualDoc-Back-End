@@ -28,9 +28,8 @@ public class CommentController {
     }
 
     @DeleteMapping("/file")
-    public String deleteFileComment(String fileId, String commentId) {
-        commentService.deleteCommentFromFile(fileId, commentId);
-        return "Yes";
+    public File deleteFileComment(String fileId, String commentId) {
+        return commentService.deleteCommentFromFile(fileId, commentId);
     }
 
 }
