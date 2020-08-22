@@ -20,6 +20,7 @@ public class User {
     List<String> recentlyViewed;
     List<String> notices;
     List<String> teamNotices;
+    List<String> groups;
 
     public User(String name, String email, String tel, String password) {
         this.name = name;
@@ -31,6 +32,7 @@ public class User {
         this.recentlyViewed = new ArrayList<>();
         this.notices = new LinkedList<String>();
         this.teamNotices = new LinkedList<String>();
+        this.groups = new ArrayList<>();
     }
 
     public String getId() {
@@ -112,4 +114,13 @@ public class User {
     public void setTeamNotices(List<String> teamNotices) {
         this.teamNotices = teamNotices;
     }
+
+    public List<String> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<String> groups) {
+        this.groups = groups;
+    }
+
 }
