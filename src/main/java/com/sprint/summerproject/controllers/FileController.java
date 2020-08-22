@@ -34,12 +34,11 @@ public class FileController {
     }
 
     @PutMapping("/user")
-    public String updateUserFile(String userId,
+    public File updateUserFile(String userId,
                                  String fileId,
                                  String title,
                                  String content) {
-        fileService.updateDocForUser(userId, fileId, title, content);
-        return "Yes";
+        return fileService.updateDocForUser(userId, fileId, title, content);
     }
 
     @DeleteMapping("/user")
