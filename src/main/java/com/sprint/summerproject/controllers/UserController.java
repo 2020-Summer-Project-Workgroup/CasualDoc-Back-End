@@ -8,6 +8,7 @@ import com.sprint.summerproject.repositories.UserRepository;
 import com.sprint.summerproject.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -37,7 +38,9 @@ public class UserController {
 
     @GetMapping("/user/regex")
     public List<User> searchUser(@RequestParam String userId) {
-        return userRepository.findUsersByTelRegex(userId);
+        if ("".equals(userId))
+            return new ArrayList<User>();
+        return userService.searchUser(userId);
     }
 
     @GetMapping("/user/notice/number")
