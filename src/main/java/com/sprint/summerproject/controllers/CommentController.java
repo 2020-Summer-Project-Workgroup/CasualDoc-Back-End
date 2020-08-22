@@ -17,10 +17,10 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @GetMapping("/all")
-    public List<Comment> getAll() {
-        return commentService.findAllComments();
-    }
+//    @GetMapping("/all")
+//    public List<Comment> getAll() {
+//        return commentService.findAllComments();
+//    }
 
     @PostMapping("/file")
     public File addFileComment(String fileId, String reviewerId, String content) {
