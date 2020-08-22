@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -40,6 +41,14 @@ public class UserService {
         } else {
             throw new UserExistException();
         }
+    }
+
+    public List<User> searchUser(String userId) {
+        String userRegex = "^" + userId + ".*";
+        Set<User> usersByTel = userRepository.findUsersByTelRegex(userRegex);
+        Set<User> usersByEmail = userRepository.findUsersByEmailRegex(userRegex);
+        usersByTel.addAll(usersByEmail);
+        return new ArrayList<User>(usersByTel);
     }
 
     public User retrieveUserByTel(String tel) {

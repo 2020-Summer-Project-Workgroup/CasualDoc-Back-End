@@ -45,12 +45,14 @@ public class CodeController {
 
     @PostMapping("/code/email")
     public String sendCodeViaEmail(@RequestParam String email) {
-        try {
-            emailService.sendNotification(email);
-            return "Yes";
-        } catch (MailException | MessagingException e) {
-            return "No";
-        }
+        new Thread(() -> {
+            try {
+                emailService.sendNotification(email);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        return "Yes";
     }
 
     @GetMapping("/code/email")
