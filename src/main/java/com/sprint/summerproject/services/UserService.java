@@ -5,6 +5,7 @@ import com.sprint.summerproject.models.Group;
 import com.sprint.summerproject.models.Notice;
 import com.sprint.summerproject.models.TeamNotice;
 import com.sprint.summerproject.models.User;
+import com.sprint.summerproject.repositories.GroupRepository;
 import com.sprint.summerproject.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +19,12 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final NoticeService noticeService;
-    private final GroupService groupService;
+    private final GroupRepository groupRepository;
 
-    public UserService(UserRepository userRepository, NoticeService noticeService, GroupService groupService) {
+    public UserService(UserRepository userRepository, NoticeService noticeService, GroupRepository groupRepository) {
         this.userRepository = userRepository;
         this.noticeService = noticeService;
-        this.groupService = groupService;
+        this.groupRepository = groupRepository;
     }
 
     public void createUserByTel(String tel, String password) throws UserExistException {
@@ -152,7 +153,7 @@ public class UserService {
         List<String> userGroupsIdList = user.getGroups();
         List<Group> userGroups = new ArrayList<>();
         for (String userGroupId : userGroupsIdList) {
-            userGroups.add(groupService.retrieveGroupById(userGroupId));
+            userGroups.add(groupRepository.findGroupById(userGroupId));
         }
         return userGroups;
     }
