@@ -20,14 +20,18 @@ public class GroupService {
         this.userService = userService;
     }
 
-    public String createGroup(String userId, String groupName) {
+    public Group createGroup(String userId, String groupName) {
         Map<String, Integer> files = new HashMap<String, Integer>();
         Map<String, List<String>> viewMembers = new HashMap<String, List<String>>();
         Map<String, List<String>> editMembers = new HashMap<String, List<String>>();
         Map<String, Integer> members = new HashMap<String, Integer>();
         members.put(userId, 1);
         Group group = groupRepository.save(new Group(groupName, files, viewMembers, editMembers, members));
-        return group.getId();
+        User user = userService.retrieveUserById(userId);
+        List<String> userGroupsIdList = user.getGroups();
+        userGroupsIdList.add(group.getId());
+        userService.writeUser(user);
+        return group;
     }
 
     public void addGroupMember(String groupId, String memberId) {

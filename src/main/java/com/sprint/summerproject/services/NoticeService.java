@@ -21,16 +21,16 @@ public class NoticeService {
     }
 
     public String createCommentNotice(String senderId, String senderName,
-                               String content, Date time) {
+                               String content) {
         return noticeRepository
-                .save(new Notice(senderId, senderName, content, time))
+                .save(new Notice(senderId, senderName, content, new Date()))
                 .getId();
     }
 
     public String createInviteNotice(String senderId, String senderName,
-                                     String groupName, Date time) {
+                                     String groupName) {
         return teamNoticeRepository
-                .save(new TeamNotice(1, senderId, senderName, groupName, time))
+                .save(new TeamNotice(1, senderId, senderName, groupName, new Date()))
                 .getId();
     }
 
