@@ -16,10 +16,10 @@ public class FileController {
         this.fileService = fileService;
     }
 
-    @GetMapping("/all")
-    public List<File> findAllFiles() {
-        return fileService.findAllFiles();
-    }
+//    @GetMapping("/all")
+//    public List<File> findAllFiles() {
+//        return fileService.findAllFiles();
+//    }
 
     @GetMapping("/info")
     public File getFileInfo(String fileId) {

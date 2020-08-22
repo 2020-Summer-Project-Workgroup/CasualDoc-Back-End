@@ -19,10 +19,10 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user/all")
-    public List<User> findAllUsers() {
-        return userService.findAllUsers();
-    }
+//    @GetMapping("/user/all")
+//    public List<User> findAllUsers() {
+//        return userService.findAllUsers();
+//    }
 
     @GetMapping("/user/tel")
     public User getUserByTel(@RequestParam String tel) {
