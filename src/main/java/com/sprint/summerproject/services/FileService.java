@@ -41,7 +41,7 @@ public class FileService {
         return file;
     }
 
-    public void updateDocForUser(String userId,
+    public File updateDocForUser(String userId,
                                  String fileId,
                                  String title,
                                  String content) {
@@ -56,6 +56,7 @@ public class FileService {
         userFiles.add(file.getId());
         user.setFiles(userFiles);
         userService.writeUser(user);
+        return file;
     }
 
     public void deleteDocFromUser(String userId, String fileId) {
