@@ -1,10 +1,10 @@
 package com.sprint.summerproject.controllers;
 
 import com.sprint.summerproject.exceptions.UserExistException;
+import com.sprint.summerproject.models.Group;
 import com.sprint.summerproject.models.Notice;
 import com.sprint.summerproject.models.TeamNotice;
 import com.sprint.summerproject.models.User;
-import com.sprint.summerproject.repositories.UserRepository;
 import com.sprint.summerproject.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +14,9 @@ import java.util.List;
 @RestController
 public class UserController {
     private final UserService userService;
-    private final UserRepository userRepository;
 
-    public UserController(UserService userService, UserRepository userRepository) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userRepository = userRepository;
     }
 
     @GetMapping("/user/all")
@@ -137,7 +135,7 @@ public class UserController {
         return "Yes";
     }
 
-    @PutMapping("user/password")
+    @PutMapping("/user/password")
     public String updateUserPassword(@RequestParam String id,
                                      @RequestParam String oldPassword,
                                      @RequestParam String newPassword) {
@@ -150,6 +148,11 @@ public class UserController {
         else {
             return "No";
         }
+    }
+
+    @GetMapping("/user/groups")
+    public List<Group> getUserGroups(String userId) {
+        return userService.getGroupsUserBelongsTo(userId);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.sprint.summerproject.services;
 
 import com.sprint.summerproject.exceptions.UserExistException;
+import com.sprint.summerproject.models.Group;
 import com.sprint.summerproject.models.Notice;
 import com.sprint.summerproject.models.TeamNotice;
 import com.sprint.summerproject.models.User;
@@ -17,28 +18,32 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final NoticeService noticeService;
+    private final GroupService groupService;
 
-    public UserService(UserRepository userRepository, NoticeService noticeService) {
+    public UserService(UserRepository userRepository, NoticeService noticeService, GroupService groupService) {
         this.userRepository = userRepository;
         this.noticeService = noticeService;
+        this.groupService = groupService;
     }
 
     public void createUserByTel(String tel, String password) throws UserExistException {
         User user = userRepository.findUserByTel(tel);
-        if(user == null) {
+        if (user == null) {
             userRepository.save(new User("手机用户" + tel,
                     "", tel, password));
-        } else {
+        }
+        else {
             throw new UserExistException();
         }
     }
 
     public void createUserByEmail(String email, String password) throws UserExistException {
         User user = userRepository.findUserByEmail(email);
-        if(user == null) {
+        if (user == null) {
             userRepository.save(new User(email.split("@")[0],
                     email, "", password));
-        } else {
+        }
+        else {
             throw new UserExistException();
         }
     }
@@ -140,6 +145,16 @@ public class UserService {
 
     public User writeUser(User user) {
         return userRepository.save(user);
+    }
+
+    public List<Group> getGroupsUserBelongsTo(String userId) {
+        User user = userRepository.findUserById(userId);
+        List<String> userGroupsIdList = user.getGroups();
+        List<Group> userGroups = new ArrayList<>();
+        for (String userGroupId : userGroupsIdList) {
+            userGroups.add(groupService.retrieveGroupById(userGroupId));
+        }
+        return userGroups;
     }
 
 }

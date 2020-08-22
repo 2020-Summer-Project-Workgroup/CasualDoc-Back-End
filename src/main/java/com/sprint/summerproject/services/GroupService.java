@@ -91,4 +91,9 @@ public class GroupService {
     public List<String> retrieveFileEditMembers(String groupId, String fileId) {
         return groupRepository.findGroupById(groupId).getEditMembers().get(fileId);
     }
+
+    public Group retrieveGroupById(String id) {
+        return groupRepository.findGroupById(id);
+    }
+
 }
