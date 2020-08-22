@@ -17,8 +17,8 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-    @GetMapping("/group")
-    public String addGroup(@RequestParam String userId, @RequestParam String groupName) {
+    @PostMapping("/group")
+    public Group addGroup(@RequestParam String userId, @RequestParam String groupName) {
         return groupService.createGroup(userId, groupName);
     }
 
