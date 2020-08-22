@@ -38,6 +38,10 @@ public class GroupService {
             group.getEditMembers().get(fileId).add(memberId);
         }
         groupRepository.save(group);
+        User user = userService.retrieveUserById(memberId);
+        List<String> userGroupsIdList = user.getGroups();
+        userGroupsIdList.add(groupId);
+        userService.writeUser(user);
     }
 
     public String addFile(String groupId, String ownerId) {
